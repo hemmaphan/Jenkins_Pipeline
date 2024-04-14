@@ -16,7 +16,7 @@ pipeline {
                     body: "Build log attached!."
                 }
                 failure {
-                    echo "Build Failed!"
+                    echo "Build Failed!!!!!!!"
                 }
             }
         }
