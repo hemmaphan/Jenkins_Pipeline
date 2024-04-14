@@ -35,7 +35,7 @@ pipeline {
             }
             stage("Completed") {
                         steps {
-                            echo "Completed."
+                            echo "Completed...."
                             // Assuming your build commands here (or reference your batch file)
                         }
                 }
