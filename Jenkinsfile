@@ -8,19 +8,30 @@ pipeline {
                 echo "Building..."
                 // Assuming your build commands here (or reference your batch file)
             }
+                // Post actions to be executed after all stages
+            post {
+                always {
+                    mail to: "art.random.email@gmail.com", 
+                    subject: "Build Status Email", 
+                    body: "Build log attached!."
+                }
+                failure {
+                    echo "Build Failed!"
+                }
+            }
         }
         // Add other stages if needed...
-    }
-
-    // Post actions to be executed after all stages
-    post {
-        success {
-            mail to: "art.random.email@gmail.com", 
-            subject: "Build Successful!", 
-            body: "Build completed successfully."
-        }
-        failure {
-            echo "Build Failed!"
-        }
+            stage("Test") {
+                steps {
+                    echo "Testing..."
+                    // Assuming your build commands here (or reference your batch file)
+                }
+            }
+            stage("Deploy") {
+                    steps {
+                        echo "Deploying..."
+                        // Assuming your build commands here (or reference your batch file)
+                    }
+            }
     }
 }
