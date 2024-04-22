@@ -59,7 +59,6 @@ pipeline {
                         mail to: "art.random.email@gmail.com",
                              subject: "Pipeline Status: ${currentBuild.result}",
                              body: "The pipeline has completed with status: ${currentBuild.result}",
-                             attachLog: true
                     }
                 }
             }
