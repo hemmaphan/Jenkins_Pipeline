@@ -55,12 +55,12 @@ pipeline {
       }
     }
   }
-  post {
-    condition("always") { // Might not work in all Jenkins versions
-  emailext subject: "Pipeline Status: ${currentBuild.result}",
-           body: "The pipeline has completed with status: ${currentBuild.result}",
-           to: "hemmaphan@gmail.com",
-           attachLog: true
-}
+post {
+    always {
+        emailext subject: "Pipeline Status: ${currentBuild.result}",
+                 body: "The pipeline has completed with status: ${currentBuild.result}",
+                 to: "hemmaphan@gmail.com",
+                 attachLog: true
     }
+}
 }
