@@ -17,7 +17,7 @@ pipeline {
                 success {
                     emailext subject: "Unit Test Status Email",
                              body: "Unit test has been run by using test automation tool - Katalon",
-                             to: "hemmaphan@gmail.com"
+                             to: "art.random.email@gmail.com"
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                 success {
                     emailext subject: "Security Scan Status Email",
                              body: "A security scan on the code has been scanned by OWASP ZAP",
-                             to: "hemmaphan@gmail.com",
+                             to: "art.random.email@gmail.com",
                              attachLog: true
                 }
             }
@@ -57,7 +57,7 @@ pipeline {
                 always {
                     emailext subject: "Pipeline Status: ${currentBuild.result}",
                              body: "The pipeline has completed with status: ${currentBuild.result}",
-                             to: "hemmaphan@gmail.com",
+                             to: "art.random.email@gmail.com",
                              attachLog: true
                 }
             }
