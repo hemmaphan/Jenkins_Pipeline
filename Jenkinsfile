@@ -53,11 +53,11 @@ pipeline{
                 echo "The application has been deployed to a production server - AWS EC2 instance"
             }
             post {
-            always {
-                mail to: "art.random.email@gmail.com",
-                     subject: "Pipeline Status: ${currentBuild.result}",
-                     body: "The pipeline has completed with status: ${currentBuild.result}",
-                     attachLog: true
+                always {
+                    emailext subject: "Pipeline Status: ${currentBuild.result}",
+                             body: "The pipeline has completed with status: ${currentBuild.result}",
+                             to: "art.random.email@gmail.com",
+                             attachLog: true
                 }
             }
         }
