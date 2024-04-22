@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        STAGING_ENVIRONMENT= "AWS EC2 instance"
+        STAGING_ENVIRONMENT = "AWS EC2 instance"
     }
     stages {
         stage('Build') {
@@ -30,13 +30,6 @@ pipeline {
             steps {
                 echo "Scanning ..."
             }
-            post {
-                success {
-                    mail to: "art.random.email@gmail.com",
-                    subject: "Security Scan Status Email",
-                    body: "A security scan on the code has been scanned by OWASP ZAP"
-                }
-            }
         }
         stage('Deploy to Staging') {
             steps {
@@ -53,17 +46,14 @@ pipeline {
                 echo "The application has been deployed to a production server - AWS EC2 instance"
             }
             post {
-                success {
-                    emailext subject: "LAST - Security Scan Status Email",
-                    body: "A security scan on the code has been scanned by OWASP ZAP",
-                    to: "art.random.email@gmail.com",
-                    attachLog: true
-                }
-                failure {
-                    emailext subject: "LAST - Security Scan Status Email Failed",
-                    body: "A security scan on the code has been scanned by OWASP ZAP",
-                    to: "art.random.email@gmail.com",
-                    attachLog: true
+                always {
+                    script {
+                        def emailSubject = currentBuild.result == 'SUCCESS' ? "LAST - Security Scan Status Email" : "LAST - Security Scan Status Email Failed"
+                        emailext subject: emailSubject,
+                                 body: "A security scan on the code has been scanned by OWASP ZAP",
+                                 to: "art.random.email@gmail.com",
+                                 attachLog: true
+                    }
                 }
             }
         }
