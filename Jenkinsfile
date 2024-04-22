@@ -56,11 +56,11 @@ pipeline {
     }
   }
   post {
-    condition("always") { // Both success and failure will trigger this notification
-      emailext subject: "Pipeline Status: ${currentBuild.result}",
-               body: "The pipeline has completed with status: ${currentBuild.result}",
-               to: "hemmaphan@gmail.com",
-               attachLog: true
+    condition("always") { // Might not work in all Jenkins versions
+  emailext subject: "Pipeline Status: ${currentBuild.result}",
+           body: "The pipeline has completed with status: ${currentBuild.result}",
+           to: "hemmaphan@gmail.com",
+           attachLog: true
+}
     }
-  }
 }
