@@ -27,7 +27,7 @@ pipeline {
                         mail to: mailTo,
                              subject: mailSubject,
                              body: mailBody,
-                             from: 'jenkins@yourdomain.com', // Set a valid sender address
+                             from: 'art.random.email@gmail.com', // Set a valid sender address
                              attachments: logFile // Attach the log file
                     }
                 }
@@ -42,7 +42,7 @@ pipeline {
                         mail to: mailTo,
                              subject: mailSubject,
                              body: mailBody,
-                             from: 'jenkins@yourdomain.com', // Set a valid sender address
+                             from: 'art.random.email@gmail.com', // Set a valid sender address
                              attachments: logFile // Attach the log file
                     }
                 }
