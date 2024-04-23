@@ -15,9 +15,12 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "art.random.email@gmail.com",
-                    subject: "Unit Test Status Email",
-                    body: "Unit test has been run by using test automation tool - Katalon"
+                    emailext(
+                        to: "art.random.email@gmail.com",
+                        subject: "Unit Test Status: ${currentBuild.result}",
+                        body: "Unit test has been run by using test automation tool - Katalon",
+                        attachmentsPattern: '**/test-results/*.xml'
+                    )
                 }
             }
         }
@@ -32,9 +35,12 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "art.random.email@gmail.com",
-                    subject: "Security Scan Status Email",
-                    body: "A security scan on the code has been scanned by OWASP ZAP"
+                    emailext(
+                        to: "art.random.email@gmail.com",
+                        subject: "Security Scan Status: ${currentBuild.result}",
+                        body: "A security scan on the code has been scanned by OWASP ZAP",
+                        attachmentsPattern: '**/security-scan-results/*.txt'
+                    )
                 }
             }
         }
@@ -51,18 +57,6 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo "The application has been deployed to a production server - AWS EC2 instance"
-            }
-            post {
-                success {
-                    mail to: "art.random.email@gmail.com",
-                    subject: "LAST - Security Scan Status Email",
-                    body: "A security scan on the code has been scanned by OWASP ZAP"
-                }
-                failure {
-                    mail to: "art.random.email@gmail.com",
-                    subject: "LAST - Security Scan Status Email Failed",
-                    body: "A security scan on the code has been scanned by OWASP ZAP"
-                }
             }
         }
     }
