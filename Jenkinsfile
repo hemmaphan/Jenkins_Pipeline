@@ -29,13 +29,12 @@ pipeline {
                 
                         // Send email using the emailext step with log file attachment
                         emailext attachLog: true,
-                                 attachmentsPattern: logFile,
+                                 attachmentsPattern: "**/build.log", // Ant GLOB pattern
                                  subject: mailSubject,
                                  body: mailBody,
                                  to: mailTo,
                                  mimeType: 'text/plain',
-                                 from: 'art.random.email@gmail.com',
-                                 timeout: 60 // Specify a timeout value in seconds
+                                 from: 'art.random.email@gmail.com'
                     }
                 }
                 
@@ -48,13 +47,12 @@ pipeline {
                 
                         // Send email using the emailext step with log file attachment
                         emailext attachLog: true,
-                                 attachmentsPattern: logFile,
+                                 attachmentsPattern: "**/build.log", // Ant GLOB pattern
                                  subject: mailSubject,
                                  body: mailBody,
                                  to: mailTo,
                                  mimeType: 'text/plain',
-                                 from: 'art.random.email@gmail.com',
-                                 timeout: 60 // Specify a timeout value in seconds
+                                 from: 'art.random.email@gmail.com'
                     }
                 }
             }
