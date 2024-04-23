@@ -8,7 +8,7 @@ pipeline {
             steps {
                 echo "This code is built by an automation tool - Maven"
                 // Generate a log file (e.g., build.log)
-                sh 'echo "Build details" > build.log'
+                bat 'echo Build details > build.log'
             }
         }
         stage('Unit Test') {
@@ -27,7 +27,7 @@ pipeline {
                         mail to: mailTo,
                              subject: mailSubject,
                              body: mailBody,
-                             from: 'art.random.email@gmail.com', // Set a valid sender address
+                             from: 'jenkins@yourdomain.com', // Set a valid sender address
                              attachments: logFile // Attach the log file
                     }
                 }
@@ -42,7 +42,7 @@ pipeline {
                         mail to: mailTo,
                              subject: mailSubject,
                              body: mailBody,
-                             from: 'art.random.email@gmail.com', // Set a valid sender address
+                             from: 'jenkins@yourdomain.com', // Set a valid sender address
                              attachments: logFile // Attach the log file
                     }
                 }
