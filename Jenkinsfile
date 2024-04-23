@@ -30,16 +30,16 @@ pipeline{
                   steps{
                         echo "Scanning ..."
                         }
-                post{
+                  post{
                         success{
-                              emailext subject: "Security Scan Status Email",
+                              emailext subject: "To send log - Security Scan Status Email",
                                     body: "A security scan on the code has been scanned by OWASP ZAP",
                                     to: "art.random.email@gmail.com",
                                     attachLog: true
                         }
                                     
                         failure{
-                              emailext subject: "Security Scan Status Email Failed",
+                              emailext subject: "To send log - Security Scan Status Email Failed",
                               body: "A security scan on the code has been scanned by OWASP ZAP",
                               to: "art.random.email@gmail.com",
                               attachLog: true
