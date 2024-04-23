@@ -4,13 +4,14 @@ pipeline {
         STAGING_ENVIRONMENT = "AWS EC2 instance"
     }
     stages {
-        stage('Build') {
-            steps {
-                echo "This code is built by an automation tool - Maven"
-                // Generate a log file (e.g., build.log)
-                bat 'echo Build details > build.log'
-            }
-        }
+       stage('Build') {
+    steps {
+        echo "This code is built by an automation tool - Maven"
+        // Append to the log file (e.g., build.log) using '>>'
+        bat 'echo Build details >> build.log'
+    }
+}
+
         stage('Unit Test') {
             steps {
                 echo "Unit test running ..."
