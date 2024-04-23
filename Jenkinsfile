@@ -7,6 +7,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo "This code is built by an automation tool - Maven"
+                // Generate a log file (e.g., build.log)
+                sh 'echo "Build details" > build.log'
             }
         }
         stage('Unit Test') {
@@ -15,44 +17,16 @@ pipeline {
             }
             post {
                 success {
-                    emailext subject: "emailext - success - Unit Test Status Email",
-                    body: "Unit test has been run by using test automation tool - Katalon",
-                    to: "art.random.email@gmail.com",
-                    attachLog: true
-                    
+                    // Send email using the mail step
+                    mail to: 'art.random.email@gmail.com',
+                         subject: 'Unit Test Status - Success',
+                         body: 'Unit test has been run by using test automation tool - Katalon',
+                         from: 'art.random.email@gmail.com', // Set a valid sender address
+                         attachmentsPattern: 'build.log' // Attach the log file
                 }
                 failure {
-                    emailext subject: "emailext - failure - Unit Test Status Email",
-                    body: "Unit test has been run by using test automation tool - Katalon",
-                    to: "art.random.email@gmail.com",
-                    attachLog: true
-
+                    // Similar configuration for failure case
                 }
-            }
-        }
-        stage('Code Analysis') {
-            steps {
-                echo "Quality of the code has been checked by code analysis tool - PMD"
-            }
-        }
-        stage('Security Scan') {
-            steps {
-                echo "Scanning ..."
-            }
-        }
-        stage('Deploy to Staging') {
-            steps {
-                echo "The application has been deployed to a staging server - AWS EC2 instance"
-            }
-        }
-        stage('Integration Test') {
-            steps {
-                echo "Integration test on the AWS EC2 instance has been run by using test automation tool - Katalon"
-            }
-        }
-        stage('Deploy to Production') {
-            steps {
-                echo "The application has been deployed to a production server - AWS EC2 instance"
             }
         }
     }
