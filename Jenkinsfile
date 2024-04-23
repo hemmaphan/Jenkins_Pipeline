@@ -27,13 +27,15 @@ pipeline {
                         def mailTo = 'art.random.email@gmail.com'
                         def logFile = "${env.WORKSPACE}/build.log"
                 
-                        // Send email using the mail step with log file attachment
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: mailBody,
-                             attachLog: true, // Specify to attach log file
-                             attachmentsPattern: logFile, // Specify the log file path
-                             from: 'art.random.email@gmail.com' // Set a valid sender address
+                        // Send email using the emailext step with log file attachment
+                        emailext attachLog: true,
+                                 attachmentsPattern: logFile,
+                                 subject: mailSubject,
+                                 body: mailBody,
+                                 to: mailTo,
+                                 mimeType: 'text/plain',
+                                 from: 'art.random.email@gmail.com',
+                                 timeout: 60 // Specify a timeout value in seconds
                     }
                 }
                 
@@ -44,13 +46,15 @@ pipeline {
                         def mailTo = 'art.random.email@gmail.com'
                         def logFile = "${env.WORKSPACE}/build.log"
                 
-                        // Send email using the mail step with log file attachment
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: mailBody,
-                             attachLog: true, // Specify to attach log file
-                             attachmentsPattern: logFile, // Specify the log file path
-                             from: 'art.random.email@gmail.com' // Set a valid sender address
+                        // Send email using the emailext step with log file attachment
+                        emailext attachLog: true,
+                                 attachmentsPattern: logFile,
+                                 subject: mailSubject,
+                                 body: mailBody,
+                                 to: mailTo,
+                                 mimeType: 'text/plain',
+                                 from: 'art.random.email@gmail.com',
+                                 timeout: 60 // Specify a timeout value in seconds
                     }
                 }
             }
