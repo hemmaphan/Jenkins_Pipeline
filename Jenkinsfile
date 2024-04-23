@@ -26,9 +26,8 @@ pipeline {
                         // Send email using the mail step
                         mail to: mailTo,
                              subject: mailSubject,
-                             body: mailBody,
-                             from: 'art.random.email@gmail.com', // Set a valid sender address
-                             attachments: logFile // Attach the log file
+                             body: "${mailBody}\n\nBuild log:\n${logFile}",
+                             from: 'art.random.email@gmail.com' // Set a valid sender address
                     }
                 }
                 failure {
@@ -41,9 +40,8 @@ pipeline {
                         // Send email using the mail step
                         mail to: mailTo,
                              subject: mailSubject,
-                             body: mailBody,
-                             from: 'art.random.email@gmail.com', // Set a valid sender address
-                             attachments: logFile // Attach the log file
+                             body: "${mailBody}\n\nBuild log:\n${logFile}",
+                             from: 'art.random.email@gmail.com' // Set a valid sender address
                     }
                 }
             }
