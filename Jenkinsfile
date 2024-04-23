@@ -8,7 +8,7 @@ pipeline {
                 script {
                     // Use echo to write to a file (works on both Windows and Unix-like systems)
                     // This will create a log file named 'build.log' with the specified content
-                    echo "Build details..." > 'build.log'
+                    bat 'echo Build details... > build.log'
                 }
             }
         }
