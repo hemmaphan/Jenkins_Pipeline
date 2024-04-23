@@ -15,12 +15,10 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: "art.random.email@gmail.com",
-                        subject: "Unit Test Status: ${currentBuild.result}",
-                        body: "Unit test has been run by using test automation tool - Katalon",
-                        attachmentsPattern: '**/test-results/*.xml'
-                    )
+                    script {
+                        def unitTestLog = readFile '**/test-results/*.xml'
+                        sendEmailWithAttachment("Unit Test Status: ${currentBuild.result}", "Unit test has been run by using test automation tool - Katalon", "art.random.email@gmail.com", unitTestLog, "unit-test-log.xml")
+                    }
                 }
             }
         }
@@ -35,12 +33,10 @@ pipeline {
             }
             post {
                 success {
-                    emailext(
-                        to: "art.random.email@gmail.com",
-                        subject: "Security Scan Status: ${currentBuild.result}",
-                        body: "A security scan on the code has been scanned by OWASP ZAP",
-                        attachmentsPattern: '**/security-scan-results/*.txt'
-                    )
+                    script {
+                        def securityScanLog = readFile '**/security-scan-results/*.txt'
+                        sendEmailWithAttachment("Security Scan Status: ${currentBuild.result}", "A security scan on the code has been scanned by OWASP ZAP", "art.random.email@gmail.com", securityScanLog, "security-scan-log.txt")
+                    }
                 }
             }
         }
@@ -60,4 +56,24 @@ pipeline {
             }
         }
     }
+}
+
+def sendEmailWithAttachment(String subject, String body, String to, String attachmentContent, String attachmentFileName) {
+    emailext (
+        subject: subject,
+        body: body,
+        to: to,
+        mimeType: 'text/plain',
+        attachmentsPattern: '',
+        attachments: [
+            [$class: 'ArtifactManagerBuildSelector'],
+            [$class: 'StringBuildSelector', stable: true],
+            [$class: 'FilePathBuildSelector'],
+            [
+                'fileName': attachmentFileName,
+                'content': attachmentContent.getBytes(),
+                'contentType': 'text/plain'
+            ]
+        ]
+    )
 }
