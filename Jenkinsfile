@@ -16,18 +16,15 @@ pipeline {
             post {
                 success {
                     mail to: "art.random.email@gmail.com",
-                    subject: "mailto - Unit Test Status Email",
+                    subject: "mailto - Success - Unit Test Status Email",
                     body: "Unit test has been run by using test automation tool - Katalon"
                     
                 }
                 failure {
                     mail to: "art.random.email@gmail.com",
-                    subject: "mailto - Unit Test Status Email",
+                    subject: "mailto - failure - Unit Test Status Email",
                     body: "Unit test has been run by using test automation tool - Katalon"
-                    emailext subject: "emailext - Unit Test Status Email",
-                    body: "Unit test has been run by using test automation tool - Katalon",
-                    to: "art.random.email@gmail.com",
-                    attachLog: true
+
                 }
             }
         }
