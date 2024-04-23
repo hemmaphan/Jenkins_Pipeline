@@ -35,7 +35,7 @@ echo "Scanning ..."
       emailext subject: "To send log - Security Scan Status Email",
       body: "A security scan on the code has been scanned by OWASP ZAP",
       to: "art.random.email@gmail.com",
-      attachLog: true
+      attachLog: false
       }
       
       failure{
