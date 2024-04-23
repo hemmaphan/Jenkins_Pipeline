@@ -17,15 +17,34 @@ pipeline {
             }
             post {
                 success {
-                    // Send email using the mail step
-                    mail to: 'art.random.email@gmail.com',
-                         subject: 'Unit Test Status - Success',
-                         body: 'Unit test has been run by using test automation tool - Katalon',
-                         from: 'art.random.email@gmail.com', // Set a valid sender address
-                         attachmentsPattern: 'build.log' // Attach the log file
+                    script {
+                        def mailSubject = 'Unit Test Status - Success'
+                        def mailBody = 'Unit test has been run by using test automation tool - Katalon'
+                        def mailTo = 'art.random.email@gmail.com'
+                        def logFile = 'build.log'
+
+                        // Send email using the mail step
+                        mail to: mailTo,
+                             subject: mailSubject,
+                             body: mailBody,
+                             from: 'art.random.email@gmail.com', // Set a valid sender address
+                             attachments: logFile // Attach the log file
+                    }
                 }
                 failure {
-                    // Similar configuration for failure case
+                    script {
+                        def mailSubject = 'Unit Test Status - Failure'
+                        def mailBody = 'Unit test has been run by using test automation tool - Katalon'
+                        def mailTo = 'art.random.email@gmail.com'
+                        def logFile = 'build.log'
+
+                        // Send email using the mail step
+                        mail to: mailTo,
+                             subject: mailSubject,
+                             body: mailBody,
+                             from: 'art.random.email@gmail.com', // Set a valid sender address
+                             attachments: logFile // Attach the log file
+                    }
                 }
             }
         }
