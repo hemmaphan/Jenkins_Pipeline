@@ -8,6 +8,7 @@ pipeline {
             steps {
                 echo "This code is built by an automation tool - Maven"
                 // Generate a log file (e.g., build.log)
+                echo "--->"
                 bat 'echo Build details > build.log'
             }
         }
@@ -24,10 +25,9 @@ pipeline {
                         def logFile = 'build.log'
 
                         // Send email using the mail step
-subject: mailSubject,
-                             body: mailBody,
-                             attachLog: true, // Specify to attach log file
-                             attachmentsPattern: 'build.log', // Specify the log file name
+                        mail to: mailTo,
+                             subject: mailSubject,
+                             body: "${mailBody}\n\nBuild log:\n${logFile}",
                              from: 'art.random.email@gmail.com' // Set a valid sender address
                     }
                 }
@@ -37,17 +37,14 @@ subject: mailSubject,
                         def mailBody = 'Unit test has been run by using test automation tool - Katalon'
                         def mailTo = 'art.random.email@gmail.com'
                         def logFile = 'build.log'
-                
-                        // Send email using the mail step with log file attachment
+
+                        // Send email using the mail step
                         mail to: mailTo,
                              subject: mailSubject,
-                             body: mailBody,
-                             attachLog: true, // Specify to attach log file
-                             attachmentsPattern: 'build.log', // Specify the log file name
+                             body: "${mailBody}\n\nBuild log:\n${logFile}",
                              from: 'art.random.email@gmail.com' // Set a valid sender address
                     }
                 }
-
             }
         }
     }
