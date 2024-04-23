@@ -24,9 +24,10 @@ pipeline {
                         def logFile = 'build.log'
 
                         // Send email using the mail step
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: "${mailBody}\n\nBuild log:\n${logFile}",
+subject: mailSubject,
+                             body: mailBody,
+                             attachLog: true, // Specify to attach log file
+                             attachmentsPattern: 'build.log', // Specify the log file name
                              from: 'art.random.email@gmail.com' // Set a valid sender address
                     }
                 }
@@ -36,14 +37,17 @@ pipeline {
                         def mailBody = 'Unit test has been run by using test automation tool - Katalon'
                         def mailTo = 'art.random.email@gmail.com'
                         def logFile = 'build.log'
-
-                        // Send email using the mail step
+                
+                        // Send email using the mail step with log file attachment
                         mail to: mailTo,
                              subject: mailSubject,
-                             body: "${mailBody}\n\nBuild log:\n${logFile}",
+                             body: mailBody,
+                             attachLog: true, // Specify to attach log file
+                             attachmentsPattern: 'build.log', // Specify the log file name
                              from: 'art.random.email@gmail.com' // Set a valid sender address
                     }
                 }
+
             }
         }
     }
