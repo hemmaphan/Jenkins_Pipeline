@@ -4,14 +4,13 @@ pipeline {
         STAGING_ENVIRONMENT = "AWS EC2 instance"
     }
     stages {
-       stage('Build') {
-    steps {
-        echo "This code is built by an automation tool - Maven"
-        // Append to the log file (e.g., build.log) using '>>'
-        bat 'echo Build details >> build.log'
-    }
-}
-
+        stage('Build') {
+            steps {
+                echo "This code is built by an automation tool - Maven"
+                // Append to the log file (e.g., build.log) using '>>'
+                bat 'echo Build details >> build.log'
+            }
+        }
         stage('Unit Test') {
             steps {
                 echo "Unit test running ..."
@@ -25,10 +24,11 @@ pipeline {
                         def logFile = 'build.log'
 
                         // Send email using the mail step
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: "${mailBody}\n\nBuild log:\n${logFile}",
-                             from: 'art.random.email@gmail.com' // Set a valid sender address
+                        emailext body: "${mailBody}\n\nBuild log:\n${logFile}",
+                            subject: mailSubject,
+                            to: mailTo,
+                            attachmentsPattern: "${logFile}",
+                            mimeType: 'text/plain'
                     }
                 }
                 failure {
@@ -39,10 +39,11 @@ pipeline {
                         def logFile = 'build.log'
 
                         // Send email using the mail step
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: "${mailBody}\n\nBuild log:\n${logFile}",
-                             from: 'art.random.email@gmail.com' // Set a valid sender address
+                        emailext body: "${mailBody}\n\nBuild log:\n${logFile}",
+                            subject: mailSubject,
+                            to: mailTo,
+                            attachmentsPattern: "${logFile}",
+                            mimeType: 'text/plain'
                     }
                 }
             }
