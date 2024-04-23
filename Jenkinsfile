@@ -10,6 +10,7 @@ pipeline {
                 // Generate a log file (e.g., build.log)
                 echo "--->"
                 bat 'echo Build details > build.log'
+                echo Build details  1>build.log
             }
         }
         stage('Unit Test') {
