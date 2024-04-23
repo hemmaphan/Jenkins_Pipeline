@@ -9,7 +9,7 @@ pipeline {
                 echo "This code is built by an automation tool - Maven"
                 // Generate a log file (e.g., build.log)
                 echo "--->"
-                bat 'echo Build details > build.log'
+               
                 echo Build details  1>build.log
             }
         }
