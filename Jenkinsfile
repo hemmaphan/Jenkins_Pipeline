@@ -1,50 +1,27 @@
 pipeline {
     agent any
-    environment {
-        STAGING_ENVIRONMENT = "AWS EC2 instance"
-    }
     stages {
         stage('Build') {
             steps {
-                echo "This code is built by an automation tool - Maven"
-                // Generate a log file (e.g., build.log)
-                echo "--->"
-               
-                echo Build details  1>build.log
+                // Run your build commands
+                // For demonstration purposes, let's echo some content to a log file
+                script {
+                    // Use echo to write to a file (works on both Windows and Unix-like systems)
+                    // This will create a log file named 'build.log' with the specified content
+                    echo "Build details..." > 'build.log'
+                }
             }
         }
         stage('Unit Test') {
             steps {
-                echo "Unit test running ..."
+                // Run your unit tests
             }
             post {
                 success {
-                    script {
-                        def mailSubject = 'Unit Test Status - Success'
-                        def mailBody = 'Unit test has been run by using test automation tool - Katalon'
-                        def mailTo = 'art.random.email@gmail.com'
-                        def logFile = 'build.log'
-
-                        // Send email using the mail step
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: "${mailBody}\n\nBuild log:\n${logFile}",
-                             from: 'art.random.email@gmail.com' // Set a valid sender address
-                    }
+                    // Send success email
                 }
                 failure {
-                    script {
-                        def mailSubject = 'Unit Test Status - Failure'
-                        def mailBody = 'Unit test has been run by using test automation tool - Katalon'
-                        def mailTo = 'art.random.email@gmail.com'
-                        def logFile = 'build.log'
-
-                        // Send email using the mail step
-                        mail to: mailTo,
-                             subject: mailSubject,
-                             body: "${mailBody}\n\nBuild log:\n${logFile}",
-                             from: 'art.random.email@gmail.com' // Set a valid sender address
-                    }
+                    // Send failure email
                 }
             }
         }
