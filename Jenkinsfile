@@ -6,66 +6,65 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "This code is built by an automation tool - Maven"
+                echo 'Compile and package the source code using Maven.'
             }
         }
-        stage('Unit Test') {
+    
+        stage('Unit and Integration Tests') {
             steps {
-                echo "Unit test running ..."
+                echo 'Run unit tests with JUnit and integration tests with TestNG.'
             }
             post {
                 success {
-                    emailext subject: "Unit Test Status Email - Success",
-                             body: "Unit Test has been completed with success",
-                             to: "art.random.email@gmail.com",
-                             attachLog: true
-                }
-                failure {
-                    emailext subject: "Unit Test Status Email - Failed",
-                             body: "Unit Test has been completed but fail",
-                             to: "art.random.email@gmail.com",
-                             attachLog: true
+                    emailext subject: 'Build Successful - Unit and Integration Tests',
+                      body: 'Your build was successful! ',
+                      to: 'art.random.email@gmail.com',
+                      attachLog: true
                 }
             }
         }
+    
         stage('Code Analysis') {
             steps {
-                echo "Quality of the code has been checked by code analysis tool - PMD"
+                echo 'Analyze the source code with SonarQube to detect bugs, code smells, and maintainability issues.'
             }
         }
+    
         stage('Security Scan') {
             steps {
-                echo "Scanning ..."
+                echo 'Scan the codebase for security vulnerabilities using OWASP ZAP.'
             }
             post {
                 success {
-                    emailext subject: "Security Scan Status Email - Success",
-                             body: "A security scan on the code has been scanned by OWASP ZAP",
-                             to: "art.random.email@gmail.com",
-                             attachLog: true
-                }
-                failure {
-                    emailext subject: "Security Scan Status Email - Failed",
-                             body: "A security scan on the code has been scanned by OWASP ZAP",
-                             to: "art.random.email@gmail.com",
-                             attachLog: true
+                    mail to: "art.random.email@gmail.com",
+                        subject: "Build Successful - Security Scan",
+                        body: "Build was successful!"
                 }
             }
         }
+    
         stage('Deploy to Staging') {
             steps {
-                echo "The application has been deployed to a staging server - AWS EC2 instance"
+                echo 'Deploy the application to staging using Docker and AWS EC2 instances.'
             }
         }
-        stage('Integration Test') {
+    
+        stage('Integration Tests on Staging') {
             steps {
-                echo "Integration test on the $STAGING_ENVIRONMENT has been run by using test automation tool - Katalon"
+                echo 'Execute integration tests in the staging environment using Selenium.'
             }
         }
+    
         stage('Deploy to Production') {
             steps {
-                echo "The application has been deployed to a production server - AWS EC2 instance"
+                echo 'Deploy the application to production using Jenkins automation on AWS EC2 instances.'
             }
+        }
+    }
+    
+    post {
+        always {
+            echo 'Cleaning up after pipeline execution.'
         }
     }
 }
