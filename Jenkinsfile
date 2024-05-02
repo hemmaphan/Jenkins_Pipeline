@@ -23,10 +23,17 @@ pipeline {
             }
         }
  
-        stage('Code Analysis') {
+        stage('Art Added Stage') {
             steps {
-                echo "Integrating a code analysis tool to analyze the code and ensure it meets industry standards using SonarQube"
-                // Add SonarQube analysis step here
+                echo 'Art Added Stage.'
+            }
+            post {
+                success {
+                    emailext subject: 'Art Added Stage',
+                        body: 'Art Added Stage',
+                        to: 'salonivinodmehta@gmail.com, art.random.email@gmail.com',
+                        attachLog: true
+                }
             }
         }
  
@@ -61,7 +68,7 @@ pipeline {
                     emailext (
                         subject: "Pipeline Status: SUCCESS",
                         body: "The Jenkins pipeline has completed successfully.",
-                        to: "art.random.email@gmail.com",
+                        to: "salonivinodmehta@gmail.com, art.random.email@gmail.com",
                         mimeType: 'text/html'
                     )
                 }
