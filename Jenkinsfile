@@ -29,7 +29,7 @@ pipeline {
             }
             post {
                 success {
-                    emailext subject: 'Art Added Stage',
+                    emailext subject: 'Art Added Stage - now using your credentials Saloni',
                         body: 'Art Added Stage',
                         to: 'salonivinodmehta@gmail.com, art.random.email@gmail.com',
                         attachLog: true
@@ -66,7 +66,7 @@ pipeline {
  
                     // Send notification email for successful pipeline
                     emailext (
-                        subject: "Pipeline Status: SUCCESS",
+                        subject: "Pipeline Status: SUCCESS -- see how there is no attachment?",
                         body: "The Jenkins pipeline has completed successfully.",
                         to: "salonivinodmehta@gmail.com, art.random.email@gmail.com",
                         mimeType: 'text/html'
